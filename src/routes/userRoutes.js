@@ -5,8 +5,9 @@ import { userSchema } from "../schemas/User.js";
 
 const userRoutes = Router();
 
-userRoutes.post("/patient", validateSchema(userSchema), userControllers.createPatient);
-userRoutes.post("/doctor", validateSchema(userSchema), userControllers.createDoctor);
+userRoutes.post("/signup/patient", validateSchema(userSchema), userControllers.createPatient);
+userRoutes.post("/signup/doctor", validateSchema(userSchema), userControllers.createDoctor);
+userRoutes.post("/signin", userControllers.signin);
 /* userRoutes.get("/", userControllers.get);
 userRoutes.put("/:id", userControllers.put);
 userRoutes.delete("/:id", userControllers.delete); */

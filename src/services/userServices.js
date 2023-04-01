@@ -25,7 +25,27 @@ async function createPatient({ name, email, password }) {
     });
 }
 
+async function loginDoctor({ email, password }) {
+    const { rows: users } = await userRepositories.findDocEmail(email);
+    if (users.length === 0) throw new Error("Incorrect email or password");
+    const [user] = users;
+
+    const validPassword = await bcrypt.compare(password, user.password);
+    if (!validPassword) throw new Error("Incorrect email or password");
+}
+
+async function loginPatient({ email, password }) {
+    const { rows: users } = await userRepositories.findPatEmail(email);
+    if (users.length === 0) throw new Error("Incorrect email or password");
+    const [user] = users;
+
+    const validPassword = await bcrypt.compare(password, user.password);
+    if (!validPassword) throw new Error("Incorrect email or password");
+}
+
 export default {
     createDoctor,
     createPatient,
+    loginDoctor,
+    loginPatient,
 };
