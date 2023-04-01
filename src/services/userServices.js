@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import userRepositories from "../repositories/userRepositories.js";
+import { v4 as uuidV4 } from "uuid";
 
 async function createDoctor({ name, email, password }) {
     const { rows: user } = await userRepositories.findDocEmail(email);
@@ -32,6 +33,11 @@ async function loginDoctor({ email, password }) {
 
     const validPassword = await bcrypt.compare(password, user.password);
     if (!validPassword) throw new Error("Incorrect email or password");
+
+    const token = uuidV4();
+    await userRepositories.createSession({ token, user_id: user.id });
+
+    return token;
 }
 
 async function loginPatient({ email, password }) {
@@ -41,6 +47,11 @@ async function loginPatient({ email, password }) {
 
     const validPassword = await bcrypt.compare(password, user.password);
     if (!validPassword) throw new Error("Incorrect email or password");
+
+    const token = uuidV4();
+    await userRepositories.createSession({ token, user_id: user.id });
+
+    return token;
 }
 
 export default {

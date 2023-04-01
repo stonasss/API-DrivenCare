@@ -38,9 +38,20 @@ async function createPatient({ name, email, password }) {
     );
 }
 
+async function createSession({ token, user_id }) {
+    await connectionDb.query(
+        `
+        INSERT INTO sessions (token, user_id)
+        VALUES ($1, $2)
+    `,
+        [token, user_id]
+    );
+}
+
 export default {
     findDocEmail,
     findPatEmail,
     createDoctor,
     createPatient,
+    createSession,
 };
