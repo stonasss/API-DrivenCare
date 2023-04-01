@@ -7,8 +7,8 @@ const userRoutes = Router();
 
 userRoutes.post("/patient", validateSchema(userSchema), userControllers.createPatient);
 userRoutes.post("/doctor", validateSchema(userSchema), userControllers.createDoctor);
-userRoutes.get("/", userControllers.get);
+/* userRoutes.get("/", userControllers.get);
 userRoutes.put("/:id", userControllers.put);
-userRoutes.delete("/:id", userControllers.delete);
+userRoutes.delete("/:id", userControllers.delete); */
 
 export default userRoutes;
