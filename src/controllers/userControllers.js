@@ -1,10 +1,21 @@
 import userServices from "../services/userServices.js";
 
-async function create(req, res) {
+async function createPatient(req, res) {
     const { name, email, password } = req.body;
 
     try {
-        await userServices.create({ name, email, password });
+        await userServices.createPatient({ name, email, password });
+        return res.sendStatus(201);
+    } catch (err) {
+        return res.status(500).send(err.message);
+    }
+}
+
+async function createDoctor(req, res) {
+    const { name, email, password } = req.body;
+
+    try {
+        await userServices.createDoctor({ name, email, password });
         return res.sendStatus(201);
     } catch (err) {
         return res.status(500).send(err.message);
@@ -12,5 +23,6 @@ async function create(req, res) {
 }
 
 export default {
-    create,
+    createPatient,
+    createDoctor,
 };

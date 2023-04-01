@@ -1,14 +1,23 @@
 import bcrypt from "bcrypt";
-import userRepositories from "../repositories/userRepositories.js"
+import userRepositories from "../repositories/userRepositories.js";
 
-async function create({ name, email, password }) {
-    const { rows: user } = await userRepositories.findByEmail(email);
-    if (user.length !== 0) return "Invalid input"
+async function createDoctor({ name, email, password }) {
+    const { rows: user } = await userRepositories.findDocEmail(email);
+    if (user.length !== 0) return "Invalid input";
 
     const hashPassword = await bcrypt.hash(password, 10);
-    await userRepositories.create({ name, email, password: hashPassword })
+    await userRepositories.createDoctor({ name, email, password: hashPassword });
+}
+
+async function createPatient({ name, email, password }) {
+    const { rows: user } = await userRepositories.findPatEmail(email);
+    if (user.length !== 0) return "Invalid input";
+
+    const hashPassword = await bcrypt.hash(password, 10);
+    await userRepositories.createPatient({ name, email, password: hashPassword });
 }
 
 export default {
-    create,
+    createDoctor,
+    createPatient,
 };
