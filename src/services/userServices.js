@@ -6,7 +6,11 @@ async function createDoctor({ name, email, password }) {
     if (user.length !== 0) return "Invalid input";
 
     const hashPassword = await bcrypt.hash(password, 10);
-    await userRepositories.createDoctor({ name, email, password: hashPassword });
+    await userRepositories.createDoctor({
+        name,
+        email,
+        password: hashPassword,
+    });
 }
 
 async function createPatient({ name, email, password }) {
@@ -14,7 +18,11 @@ async function createPatient({ name, email, password }) {
     if (user.length !== 0) return "Invalid input";
 
     const hashPassword = await bcrypt.hash(password, 10);
-    await userRepositories.createPatient({ name, email, password: hashPassword });
+    await userRepositories.createPatient({
+        name,
+        email,
+        password: hashPassword,
+    });
 }
 
 export default {
